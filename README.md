@@ -10,3 +10,5 @@ The aim of this football match outcome prediction project is to create a pipelin
 To accomplish this I have used pandas and sklearn.
 
 ## Pipeline
+
+The pipeline has been desgined to 
