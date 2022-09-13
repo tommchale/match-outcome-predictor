@@ -5,6 +5,21 @@ Use ML techniques to predict score outcomes of football matches
 
 The aim of this football match outcome prediction project is to create a pipeline to systematically clean and perform feature engineering on football matches data samples and upsert the data into a database. ML models will then be trained on this data to predict match outcomes.
 
+## Project Flow
+
+* pipeline.py / pipeline.ipynb
+
+    - initial pipeline for cleaning initial CSV data and generating some features)
+    
+* 3. Further Engineering For ML Models/classification_dataset_cleaing 
+
+    - this splits dataset into decades and leagues alongside creating average goals scored and conceeded per game for each team in each split dataframe.
+    
+* 4. Model Training/premier_league 
+
+    - in this repo I have only included the models created and the methods of creation for training classification models on the premier league datasets.
+    
+* 5. Further Data Collection 
 ## Technologies Used
 
 To accomplish this I have used pandas and scikit.
