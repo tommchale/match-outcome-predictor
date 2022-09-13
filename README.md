@@ -33,8 +33,10 @@ The aim of this football match outcome prediction project is to create a pipelin
         - The data is then fed into the models for the predicitions to be made
 ## Technologies Used
 
-To accomplish this I have used pandas and scikit.
-
+* pandas
+* sklearn
+* selenium
+* 
 ## Pipeline
 
 ### EDA and Data Cleaning
@@ -56,35 +58,35 @@ Nested functions are then run across the dataset, breaking it down into League a
 
 During the feature engineering some seasons where found to be incomplete. These are collected into a list (missing_data_information_list) and removed from the combined dataframe.
 
-Further feature were then added to the data using additional nested loops:
-
-* Average home and away team gols scored per game
-* Average home and away team gols conceeded per game
-
 To provide more specific and targeted data to the Machine Learning Models, this data was also split in decades as the styles of football were deemed different from 1990 vs 2021.
 
 The data was also split into league, again aiming to capture the difference in top flight football styles from Spain to England.
+
+Further feature were then added to the refined data using additional nested loops:
+
+* Average home and away team gols scored per game
+* Average home and away team gols conceeded per game
 
 Further columns are then removed from the dataframe including non-numerical values, target information and any fixtures that don't contain ELO information.
 
 ### AWS RDS Upsert
 
-Once cleaned and engineered this data is upserting into a AWS RDS SQL database.
+Once cleaned and engineered this data can be upserted into a AWS RDS SQL database.
 
 ## Creating Classification Predicition Models
 
 ### Machine Model Training
 
-A number of ML models were trained on the decade split premier league and primera division data. Again for the purposes of this project the data was assessed on match outcomes from 2011 - 2021.
+A number of ML models were trained on the decade split premier league and primera division data from 2011 - 2021.
 
-Following feautre selection to reduce overfitting, KNeighbours Classifier and Random Forest Classifier proved most adept at prediciting outcomes. Using a randomised and grid search CV on the premier league data a RFClassifier and KNeighbouts model was found to have an accuracy of 55.7 % and 56.6%  in prediciting match outcomes (win/lose/draw).
+Following feautre selection to reduce overfitting, KNeighbours Classifier and Random Forest Classifier proved most adept at prediciting outcomes. Using a randomised and grid search CV on the premier league data a RFClassifier and KNeighbouts model was found to have an accuracy of 56.6 % and 55.7% respectively in prediciting match outcomes of the premier league matches (win/lose/draw).
 
 
 ### Further Data Collection
 
-A web scraper module was then created to scrape data from besoccer.com required for the predicitions. Following the feature selection discussed above, this only included home and away goals and home/away ELO ratings.
+A web scraper module was then created to scrape data from besoccer.com for matches that have not occured yet. Following the feature selection discussed above, this therefore only required collection of home and away goals and home/away ELO ratings.
 
-In order to compute an accurate features, data from 2 seasons before of matches played was collected alongside the unplayed matches.
+In order to compute an accurate features leading into each match, data from 2 seasons before was collected alongside the unplayed matches.
 
 This scraped data was then run through a modified version of the pipeline, and had appropriate features computed.
 
