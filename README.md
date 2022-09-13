@@ -21,14 +21,15 @@ The aim of this football match outcome prediction project is to create a pipelin
     
 * Further Data Collection 
 
-        - This folder contained three notebooks which contain scripts to scrape besoccer for further information.
-        - Modify, clean and generate basic features for that data
-        - Generate further features (average goals per game) and prepare data for input to ML models
+        - This folder includes three notebooks which contain scripts to:
+            - scrape besoccer for further ELO ratings and results for all premier league fixture 2021 - 2023
+            - Modify, clean and generate basic features for that data
+            - Generate further features (average goals per game) and prepare data for input to ML models
 
 * Inference/premier_league
 
         - In this notebook the trained models and matches for which the result is to be predicted are loaded
-        - This data is normalised on the minmax scaler initially used on the training data for ML models
+        - This data is normalised with the minmax scaler initially used on the training data for ML models
         - The data is then fed into the models for the predicitions to be made
 ## Technologies Used
 
