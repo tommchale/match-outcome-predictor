@@ -30,9 +30,31 @@ Nested functions are then run across the dataset, breaking it down into League a
 
 During the feature engineering some seasons where found to be incomplete. These are collected into a list (missing_data_information_list) and removed from the combined dataframe.
 
+Further feature were then added to the data using additional nested loops:
+
+* Average home and away team gols scored per game
+* Average home and away team gols conceeded per game
+
+To provide more specific and targeted data to the Machine Learning Models, this data was also split in decades as the styles of football were deemed different from 1990 vs 2021.
+
+The data was also split into league, again aiming to capture the difference in top flight football styles from Spain to England.
+
 Further columns are then removed from the dataframe including non-numerical values, target information and any fixtures that don't contain ELO information.
 
 ### AWS RDS Upsert
 
 Once cleaned and engineered this data is upserting into a AWS RDS SQL database.
+
+### Machine Model Training
+
+A number of ML models were trained on the decade split premier league and primera division data. Again for the purposes of this project the data was assessed on match outcomes from 2011 - 2021.
+
+Following feautre selection to reduce overfitting, KNeighbours Classifier and Random Forest Classifier proved most adept at prediciting outcomes. Using a randomised and grid search CV on the premier league data a RFClassifier model was founf to have an accuracy of 56.7 % in prediciting match outcomes (win/lose/draw).
+
+### Inference
+
+A web scraper module was then created to scrape data from besoccer.com required for the predicitions.
+
+
+
 
