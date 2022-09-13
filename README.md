@@ -7,7 +7,7 @@ The aim of this football match outcome prediction project is to create a pipelin
 
 ## Technologies Used
 
-To accomplish this I have used pandas and sklearn.
+To accomplish this I have used pandas and scikit.
 
 ## Pipeline
 
