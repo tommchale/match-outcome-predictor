@@ -11,7 +11,7 @@ To accomplish this I have used pandas and scikit.
 
 ## Pipeline
 
-### Cleaning and Aggregating Dataset
+### EDA and Data Cleaning
 
 The pipeline has been desgined to aggregate, clean, and combine multiple CSV files containing result information from a number of leagues and seasons alongside team and match information. 
 
@@ -26,7 +26,7 @@ Nested functions are then run across the dataset, breaking it down into League a
 * Season win/ loss streak for home and away teams leading into that game
 * Season count of number of games in a row where the home/away team has not scored a goal
 
-### Further cleaning and manipulation
+### Further Engineering for ML Models
 
 During the feature engineering some seasons where found to be incomplete. These are collected into a list (missing_data_information_list) and removed from the combined dataframe.
 
@@ -45,15 +45,26 @@ Further columns are then removed from the dataframe including non-numerical valu
 
 Once cleaned and engineered this data is upserting into a AWS RDS SQL database.
 
+## Creating Classification Predicition Models
+
 ### Machine Model Training
 
 A number of ML models were trained on the decade split premier league and primera division data. Again for the purposes of this project the data was assessed on match outcomes from 2011 - 2021.
 
-Following feautre selection to reduce overfitting, KNeighbours Classifier and Random Forest Classifier proved most adept at prediciting outcomes. Using a randomised and grid search CV on the premier league data a RFClassifier model was founf to have an accuracy of 56.7 % in prediciting match outcomes (win/lose/draw).
+Following feautre selection to reduce overfitting, KNeighbours Classifier and Random Forest Classifier proved most adept at prediciting outcomes. Using a randomised and grid search CV on the premier league data a RFClassifier and KNeighbouts model was found to have an accuracy of 55.7 % and 56.6%  in prediciting match outcomes (win/lose/draw).
+
+
+### Further Data Collection
+
+A web scraper module was then created to scrape data from besoccer.com required for the predicitions. Following the feature selection discussed above, this only included home and away goals and home/away ELO ratings.
+
+In order to compute an accurate features, data from 2 seasons before of matches played was collected alongside the unplayed matches.
+
+This scraped data was then run through a modified version of the pipeline, and had appropriate features computed.
 
 ### Inference
 
-A web scraper module was then created to scrape data from besoccer.com required for the predicitions.
+The most recent unplayed matched were then run through the Random Forest and KNeighbours models to predict match outcomes.
 
 
 
