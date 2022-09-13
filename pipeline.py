@@ -287,10 +287,11 @@ def combine_dataframes(combined_results_cleaned_df, match_info_cleaned_df, team_
     Returns:
         _description_
     '''
+    # TODO: If these values are not being used in the ML models can consider removal of this option.
     result_match_df = pd.merge(
         combined_results_cleaned_df, match_info_cleaned_df, how='inner', on="Link")
     combined_df = pd.merge(
-        result_match_df, team_info_cleaned_df, how='inner', on="Home_Team")
+        result_match_df, team_info_cleaned_df, how='outer', on="Home_Team")
 
     return combined_df
 
@@ -430,6 +431,8 @@ def populate_season_stats(season_df, summary_df_template):
         _description_
     '''
     round_df_grouped = season_df.groupby("Round")
+
+    # TODO: This doesn't look right - need to test!!
 
     for round in season_df["Round"].unique():
         round_df = round_df_grouped.get_group(round)
@@ -642,31 +645,6 @@ def _remove_incomplete_seasons(missing_information_list, combined_elo_with_featu
     return combined_elo_with_features_df
 
 
-def _prepare_dataset_for_ML_models(df):
-    '''_prepare_dataset_for_ML_models 
-    Function to prepare data for ML models. This includes:
-
-    1. Removing columns containing non-numerical data
-    2. Creating a goal difference column as the target
-    3. Drop Home and Away Goals as that is the result.
-    4. Drop fixtures that do not contain ELO scores
-
-    Arguments:
-        df -- _description_
-
-    Returns:
-        _description_
-    '''
-
-    df.drop(axis=1, columns=['Result', 'Round', 'Link', 'Home_Win', 'Away_Win', 'Date_New', 'Home_Team', 'Away_Team', 'Season',
-            'League', 'Referee', 'City', 'Country', 'Stadium', 'Pitch', 'Home_Yellow', 'Home_Red', 'Away_Yellow', 'Away_Red'], inplace=True)
-    df["Goal_Difference"] = df["Home_Goals"] - df["Away_Goals"]
-    df.drop(axis=1, columns=['Home_Goals', 'Away_Goals'], inplace=True)
-    df.dropna(subset=["ELO_home"], inplace=True)
-
-    return df
-
-
 def load_clean_merge_all_datasets():
 
     results_path = r'/Users/tom/Documents/Coding/AiCore/Projects/4. Football Match Outcome Predictor /Results'
@@ -714,15 +692,6 @@ def create_new_features(combined_ELO_df):
     return combined_elo_with_features_df, missing_data_information_list
 
 
-def remove_incomplete_seasons_and_non_numerical_values(combined_elo_with_features_df, missing_data_information_list):
-    combined_elo_with_partial_seasons_removed_df = _remove_incomplete_seasons(
-        missing_data_information_list, combined_elo_with_features_df)
-    combined_elo_numerical_df = _prepare_dataset_for_ML_models(
-        combined_elo_with_partial_seasons_removed_df)
-
-    return combined_elo_numerical_df
-
-
 def _connect_to_RDS() -> create_engine:
     '''_connect_to_RDS 
     Method to create connection to RDS database using sqlalchemy
@@ -762,6 +731,6 @@ def run_pipeline():
     combined_ELO_df = load_clean_merge_all_datasets()
     combined_elo_with_features_df, missing_data_information_list = create_new_features(
         combined_ELO_df)
-    combined_elo_numerical_df = remove_incomplete_seasons_and_non_numerical_values(
-        combined_elo_with_features_df, missing_data_information_list)
-    _upload_dataframes_to_rds(combined_elo_numerical_df)
+    combined_elo_with_partial_seasons_removed_df = _remove_incomplete_seasons(
+        missing_data_information_list, combined_elo_with_features_df)
+    _upload_dataframes_to_rds(combined_elo_with_partial_seasons_removed_df)
