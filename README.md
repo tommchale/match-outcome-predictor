@@ -9,7 +9,7 @@ The aim of this football match outcome prediction project is to create a pipelin
 
 * pipeline.py / pipeline.ipynb
 
-    - initial pipeline for cleaning initial CSV data and generating some features)
+    - initial pipeline for cleaning initial CSV data and generating initial features
     
 * Further Engineering For ML Models/classification_dataset_cleaing 
 
