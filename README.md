@@ -1,5 +1,5 @@
 # match-outcome-predictor
-Use ML techniques to predict score outcomes of football matches
+Use machine learning models and techniques to predict outcomes (win/loss/draw) of football matches
 
 ## Project Description
 
