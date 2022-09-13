@@ -22,9 +22,7 @@ The aim of this football match outcome prediction project is to create a pipelin
 * Further Data Collection 
 
         - This folder contained three notebooks which contain scripts to scrape besoccer for further information.
-
         - Modify, clean and generate basic features for that data
-
         - Generate further features (average goals per game) and prepare data for input to ML models
 
 * Inference/premier_league
