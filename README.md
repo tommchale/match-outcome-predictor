@@ -11,15 +11,27 @@ The aim of this football match outcome prediction project is to create a pipelin
 
     - initial pipeline for cleaning initial CSV data and generating some features)
     
-* 3. Further Engineering For ML Models/classification_dataset_cleaing 
+* Further Engineering For ML Models/classification_dataset_cleaing 
 
     - this splits dataset into decades and leagues alongside creating average goals scored and conceeded per game for each team in each split dataframe.
     
-* 4. Model Training/premier_league 
+* Model Training/premier_league 
 
     - in this repo I have only included the models created and the methods of creation for training classification models on the premier league datasets.
     
-* 5. Further Data Collection 
+* Further Data Collection 
+
+        - This folder contained three notebooks which contain scripts to scrape besoccer for further information.
+
+        - Modify, clean and generate basic features for that data
+
+        - Generate further features (average goals per game) and prepare data for input to ML models
+
+* Inference/premier_league
+
+        - In this notebook the trained models and matches for which the result is to be predicted are loaded
+        - This data is normalised on the minmax scaler initially used on the training data for ML models
+        - The data is then fed into the models for the predicitions to be made
 ## Technologies Used
 
 To accomplish this I have used pandas and scikit.
